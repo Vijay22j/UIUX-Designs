@@ -12,17 +12,27 @@
   @keyframes twinkleA { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
   @keyframes twinkleB { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
   @keyframes flareSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes rotateBands { from { background-position: 0 0; } to { background-position: -48px 0; } }
 
   a.node-link, a.card-link { text-decoration: none; color: inherit; display: block; }
 
   .node-outer { transition: transform 0.28s ease; }
-  .node-outer:hover, .node-link:focus-visible .node-outer { transform: scale(1.12); }
-  .node-outer:hover .planet-sphere, .node-link:focus-visible .planet-sphere { filter: brightness(1.18); }
-  .node-outer:hover .planet-ring, .node-link:focus-visible .planet-ring { opacity: 1; }
+  .planet-sphere { transition: filter 0.28s ease; }
+  .planet-surface { position: absolute; inset: 0; border-radius: 50%; animation: rotateBands 3.5s linear infinite; animation-play-state: paused; }
+  .planet-shading { position: absolute; inset: 0; border-radius: 50%; pointer-events: none; background: radial-gradient(circle at 30% 24%, rgba(255,255,255,0.65), transparent 42%), radial-gradient(circle at 76% 82%, rgba(0,0,0,0.55), transparent 64%); }
+  .planet-halo { position: absolute; left: 50%; top: 50%; width: 210%; height: 210%; transform: translate(-50%,-50%) scale(0.6); border-radius: 50%; opacity: 0; transition: opacity 0.35s ease, transform 0.35s ease; pointer-events: none; }
 
-  .card-link:hover .panel-inner, .card-link:focus-visible .panel-inner { transform: translateY(-3px); }
-  .card-link:hover .badge, .card-link:focus-visible .badge { filter: brightness(1.15); }
-  .card-link:hover .desc, .card-link:focus-visible .desc { color: #F3F7FF; }
+  .planet-group:hover .node-outer, .planet-group:focus-within .node-outer { transform: scale(1.12); }
+  .planet-group:hover .planet-sphere, .planet-group:focus-within .planet-sphere { filter: brightness(1.18); }
+  .planet-group:hover .planet-ring, .planet-group:focus-within .planet-ring { opacity: 1; }
+  .planet-group:hover .planet-halo, .planet-group:focus-within .planet-halo { opacity: 0.65; transform: translate(-50%,-50%) scale(1); }
+  @media (prefers-reduced-motion: no-preference) {
+    .planet-group:hover .planet-surface, .planet-group:focus-within .planet-surface { animation-play-state: running; }
+  }
+
+  .planet-group:hover .panel-inner, .planet-group:focus-within .panel-inner { transform: translateY(-3px); }
+  .planet-group:hover .badge, .planet-group:focus-within .badge { filter: brightness(1.15); }
+  .planet-group:hover .desc, .planet-group:focus-within .desc { color: #F3F7FF; }
 
   .node-link:focus-visible .node-outer, .card-link:focus-visible .panel-inner { outline: 2px solid #7EC1F0; outline-offset: 5px; border-radius: 18px; }
 
@@ -94,6 +104,8 @@
     <div style="position:absolute;width:520px;height:520px;left:-160px;top:-180px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,0.28),transparent 70%);filter:blur(14px);"></div>
     <div style="position:absolute;width:600px;height:600px;right:-220px;top:100px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,0.22),transparent 70%);filter:blur(14px);"></div>
     <div style="position:absolute;width:480px;height:480px;left:38%;bottom:-60px;border-radius:50%;background:radial-gradient(circle,rgba(245,158,11,0.16),transparent 70%);filter:blur(14px);"></div>
+    <div style="position:absolute;width:230px;height:230px;left:-90px;bottom:-90px;border-radius:50%;background:radial-gradient(circle at 30% 25%, #C7CDD6 0%, #8890A0 38%, #4B5262 72%, #262B36 100%);box-shadow:0 0 60px 10px rgba(0,0,0,0.35);opacity:0.5;"></div>
+    <div style="position:absolute;width:300px;height:300px;right:-120px;bottom:-140px;border-radius:50%;background:radial-gradient(circle at 32% 26%, #CFF7EE 0%, #3FC7B2 34%, #12796A 70%, #063A32 100%);box-shadow:0 0 80px 16px rgba(20,184,166,0.25);opacity:0.45;"></div>
   </div>
 
   <div style="max-width:1160px;margin:0;flex-shrink:0;display:flex;align-items:center;gap:12px;position:relative;z-index:2;">
@@ -140,11 +152,15 @@
     </div>
 
     <!-- Business Value Chain -->
+    <div class="planet-group">
     <a class="node-link" href="https://taciti.sharepoint.com/sites/SemiconductorManufacturingProcess/SitePages/Business-Process-Flow.aspx?e=UzNKm1&amp;share=IQAw80IZoTprT6uRj-zDO1oTAUT1RLxh1WjICzz5z28a3jQ" target="_blank" rel="noopener">
       <div class="node-outer" style="position:absolute;left:45%;top:15.968%;width:10%;height:18.065%;">
+        <div class="planet-halo" style="background:radial-gradient(circle, rgba(59,130,246,0.55), transparent 70%);"></div>
         <div class="planet-ring" style="position:absolute;left:50%;top:50%;width:172%;height:44%;transform:translate(-50%,-50%) rotate(-18deg);border-radius:50%;border:2px solid rgba(59,130,246,0.55);box-shadow:0 0 10px rgba(59,130,246,0.35);opacity:0.85;transition:opacity 0.28s ease;pointer-events:none;"></div>
-        <div class="planet-sphere" style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 32% 26%, #eaf2ff 0%, #3b82f6 42%, #1d4ed8 78%, #0f2f7a 100%);box-shadow:0 0 20px 4px rgba(59,130,246,0.5), inset -6px -6px 10px rgba(0,0,0,0.35), inset 3px 3px 6px rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;transition:filter 0.28s ease;">
-          <svg width="30" height="30" viewBox="0 0 24 24" style="color:#F8FAFC;overflow:visible;">
+        <div class="planet-sphere" style="position:absolute;inset:0;border-radius:50%;overflow:hidden;box-shadow:0 0 20px 4px rgba(59,130,246,0.5), inset -6px -6px 10px rgba(0,0,0,0.35), inset 3px 3px 6px rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;">
+          <div class="planet-surface" style="background-image:repeating-linear-gradient(78deg, #1d4ed8 0px, #1d4ed8 6px, #3b82f6 6px, #3b82f6 12px, #60a5fa 12px, #60a5fa 18px, #1e40af 18px, #1e40af 24px);"></div>
+          <div class="planet-shading"></div>
+          <svg width="30" height="30" viewBox="0 0 24 24" style="position:relative;color:#F8FAFC;overflow:visible;">
             <g><rect x="3.5" y="16" width="3" height="4.5" rx="0.8" fill="currentColor" fill-opacity="0.55"></rect><rect x="9.5" y="14" width="3" height="6.5" rx="0.8" fill="currentColor" fill-opacity="0.75"></rect><rect x="15.5" y="11" width="3" height="9.5" rx="0.8" fill="currentColor"></rect><path d="M3 13 L8 8.5 L12 11 L20 3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14.5 3.5 L20 3.5 L20 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="20" cy="3.5" r="1.6" fill="#FFD166"></circle></g>
           </svg>
         </div>
@@ -156,13 +172,18 @@
         <p class="desc" style="font-size:11px;line-height:1.45;color:#9FB0CC;margin:8px 0 0;transition:color 0.25s ease;">Represent the end-to-end business process flow, illustrating how each process area contributes value across the enterprise.</p>
       </div>
     </a>
+    </div>
 
     <!-- Architecture View -->
+    <div class="planet-group">
     <a class="node-link" href="https://taciti.sharepoint.com/sites/SemiconductorManufacturingProcess/SitePages/Stagewise-Process.aspx?e=ly99xn&amp;share=IQBG2K2dd2TWTYRkXxmNf2vaAaNlV4_Fu-6f9ZqCfhXx54s" target="_blank" rel="noopener">
       <div class="node-outer" style="position:absolute;left:62.411%;top:38.823%;width:10%;height:18.065%;">
+        <div class="planet-halo" style="background:radial-gradient(circle, rgba(139,92,246,0.55), transparent 70%);"></div>
         <div class="planet-ring" style="position:absolute;left:50%;top:50%;width:172%;height:44%;transform:translate(-50%,-50%) rotate(16deg);border-radius:50%;border:2px solid rgba(139,92,246,0.55);box-shadow:0 0 10px rgba(139,92,246,0.35);opacity:0.85;transition:opacity 0.28s ease;pointer-events:none;"></div>
-        <div class="planet-sphere" style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 32% 26%, #f1ebff 0%, #8b5cf6 42%, #6d28d9 78%, #3b1470 100%);box-shadow:0 0 20px 4px rgba(139,92,246,0.5), inset -6px -6px 10px rgba(0,0,0,0.35), inset 3px 3px 6px rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;transition:filter 0.28s ease;">
-          <svg width="30" height="30" viewBox="0 0 24 24" style="color:#F8FAFC;overflow:visible;">
+        <div class="planet-sphere" style="position:absolute;inset:0;border-radius:50%;overflow:hidden;box-shadow:0 0 20px 4px rgba(139,92,246,0.5), inset -6px -6px 10px rgba(0,0,0,0.35), inset 3px 3px 6px rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;">
+          <div class="planet-surface" style="background-image:repeating-linear-gradient(78deg, #6d28d9 0px, #6d28d9 6px, #8b5cf6 6px, #8b5cf6 12px, #a78bfa 12px, #a78bfa 18px, #5b21b6 18px, #5b21b6 24px);"></div>
+          <div class="planet-shading"></div>
+          <svg width="30" height="30" viewBox="0 0 24 24" style="position:relative;color:#F8FAFC;overflow:visible;">
             <g><path d="M12 6.8 V12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><path d="M5.5 16.7 V12 H18.5 V16.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><circle cx="12" cy="4.5" r="2.6" fill="currentColor"></circle><circle cx="5.5" cy="19" r="2.3" fill="none" stroke="currentColor" stroke-width="2"></circle><circle cx="18.5" cy="19" r="2.3" fill="none" stroke="currentColor" stroke-width="2"></circle><circle cx="5.5" cy="19" r="0.9" fill="#FFD166"></circle><circle cx="18.5" cy="19" r="0.9" fill="#FFD166"></circle></g>
           </svg>
         </div>
@@ -174,13 +195,18 @@
         <p class="desc" style="font-size:11px;line-height:1.45;color:#9FB0CC;margin:8px 0 0;transition:color 0.25s ease;">Design and structure the enterprise architecture for scalability and alignment.</p>
       </div>
     </a>
+    </div>
 
     <!-- Best Practices -->
+    <div class="planet-group">
     <a class="node-link" href="https://taciti.sharepoint.com/sites/SemiconductorManufacturingProcess/SitePages/Best-Practice.aspx?e=cDdQ66&amp;share=IQD1bgjAeW6TRJXLuDE3etYsAX6S1se1P62sEH86fL5kpF8#best-practices" target="_blank" rel="noopener">
       <div class="node-outer" style="position:absolute;left:55.759%;top:75.774%;width:10%;height:18.065%;">
+        <div class="planet-halo" style="background:radial-gradient(circle, rgba(20,184,166,0.55), transparent 70%);"></div>
         <div class="planet-ring" style="position:absolute;left:50%;top:50%;width:172%;height:44%;transform:translate(-50%,-50%) rotate(-22deg);border-radius:50%;border:2px solid rgba(20,184,166,0.55);box-shadow:0 0 10px rgba(20,184,166,0.35);opacity:0.85;transition:opacity 0.28s ease;pointer-events:none;"></div>
-        <div class="planet-sphere" style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 32% 26%, #e4fbf7 0%, #14b8a6 42%, #0f8f80 78%, #0b5c52 100%);box-shadow:0 0 20px 4px rgba(20,184,166,0.5), inset -6px -6px 10px rgba(0,0,0,0.35), inset 3px 3px 6px rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;transition:filter 0.28s ease;">
-          <svg width="30" height="30" viewBox="0 0 24 24" style="color:#F8FAFC;overflow:visible;">
+        <div class="planet-sphere" style="position:absolute;inset:0;border-radius:50%;overflow:hidden;box-shadow:0 0 20px 4px rgba(20,184,166,0.5), inset -6px -6px 10px rgba(0,0,0,0.35), inset 3px 3px 6px rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;">
+          <div class="planet-surface" style="background-image:repeating-linear-gradient(78deg, #0f8f80 0px, #0f8f80 6px, #14b8a6 6px, #14b8a6 12px, #5eead4 12px, #5eead4 18px, #0b6b5f 18px, #0b6b5f 24px);"></div>
+          <div class="planet-shading"></div>
+          <svg width="30" height="30" viewBox="0 0 24 24" style="position:relative;color:#F8FAFC;overflow:visible;">
             <g><path d="M14.3 20c0.4-3.1 2.4-5.3 4.7-5.3s4.3 2.2 4.7 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="18" cy="8.5" r="2.3" fill="none" stroke="currentColor" stroke-width="2"></circle><path d="M3 20c0-4.2 2.8-6.7 6-6.7s6 2.5 6 6.7" fill="currentColor" fill-opacity="0.22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="9" cy="7.5" r="3" fill="currentColor" stroke="none"></circle></g>
           </svg>
         </div>
@@ -192,13 +218,18 @@
         <p class="desc" style="font-size:11px;line-height:1.45;color:#9FB0CC;margin:8px 0 0;transition:color 0.25s ease;">Implement proven methodologies and standards for operational excellence.</p>
       </div>
     </a>
+    </div>
 
     <!-- Use Cases -->
+    <div class="planet-group">
     <a class="node-link" href="https://taciti.sharepoint.com/sites/SemiconductorManufacturingProcess/SitePages/Use-Cases.aspx?e=K8mTcQ&amp;share=IQDhshMBndTLSr1krFom-VjKAYlRkb_D1hNJoEUuUp8u17E#use-cases" target="_blank" rel="noopener">
       <div class="node-outer" style="position:absolute;left:34.241%;top:75.774%;width:10%;height:18.065%;">
+        <div class="planet-halo" style="background:radial-gradient(circle, rgba(251,113,133,0.55), transparent 70%);"></div>
         <div class="planet-ring" style="position:absolute;left:50%;top:50%;width:172%;height:44%;transform:translate(-50%,-50%) rotate(20deg);border-radius:50%;border:2px solid rgba(251,113,133,0.55);box-shadow:0 0 10px rgba(251,113,133,0.35);opacity:0.85;transition:opacity 0.28s ease;pointer-events:none;"></div>
-        <div class="planet-sphere" style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 32% 26%, #ffedef 0%, #fb7185 42%, #e11d48 78%, #7a0f27 100%);box-shadow:0 0 20px 4px rgba(251,113,133,0.5), inset -6px -6px 10px rgba(0,0,0,0.35), inset 3px 3px 6px rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;transition:filter 0.28s ease;">
-          <svg width="30" height="30" viewBox="0 0 24 24" style="color:#F8FAFC;overflow:visible;">
+        <div class="planet-sphere" style="position:absolute;inset:0;border-radius:50%;overflow:hidden;box-shadow:0 0 20px 4px rgba(251,113,133,0.5), inset -6px -6px 10px rgba(0,0,0,0.35), inset 3px 3px 6px rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;">
+          <div class="planet-surface" style="background-image:repeating-linear-gradient(78deg, #e11d48 0px, #e11d48 6px, #fb7185 6px, #fb7185 12px, #fda4af 12px, #fda4af 18px, #9f1239 18px, #9f1239 24px);"></div>
+          <div class="planet-shading"></div>
+          <svg width="30" height="30" viewBox="0 0 24 24" style="position:relative;color:#F8FAFC;overflow:visible;">
             <g><path d="M12 3.2a6 6 0 00-3.1 11.1c0.6 0.4 1.1 1.1 1.1 1.9V17h4v-0.8c0-0.8 0.4-1.5 1.1-1.9A6 6 0 0012 3.2z" fill="currentColor" fill-opacity="0.22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M10 20h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><path d="M10.3 17.5h3.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><path d="M12 0.8v1.6M5.3 4.3l1.2 1.2M18.7 4.3l-1.2 1.2" stroke="#FFD166" stroke-width="1.6" stroke-linecap="round"></path></g>
           </svg>
         </div>
@@ -210,13 +241,18 @@
         <p class="desc" style="font-size:11px;line-height:1.45;color:#9FB0CC;margin:8px 0 0;transition:color 0.25s ease;">Identify and implement high-impact use cases that drive business outcomes.</p>
       </div>
     </a>
+    </div>
 
     <!-- OCM -->
+    <div class="planet-group">
     <a class="node-link" href="https://taciti.sharepoint.com/sites/SemiconductorManufacturingProcess/SitePages/OCM.aspx?e=ilhfjr&amp;share=IQBDPtuYBGJvQL2_Crt1Pq9mAXEJt8-bCSvlK8aJF8Rt19U#ocm" target="_blank" rel="noopener">
       <div class="node-outer" style="position:absolute;left:27.589%;top:38.823%;width:10%;height:18.065%;">
+        <div class="planet-halo" style="background:radial-gradient(circle, rgba(249,115,22,0.55), transparent 70%);"></div>
         <div class="planet-ring" style="position:absolute;left:50%;top:50%;width:172%;height:44%;transform:translate(-50%,-50%) rotate(-15deg);border-radius:50%;border:2px solid rgba(249,115,22,0.55);box-shadow:0 0 10px rgba(249,115,22,0.35);opacity:0.85;transition:opacity 0.28s ease;pointer-events:none;"></div>
-        <div class="planet-sphere" style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 32% 26%, #ffefe0 0%, #f97316 42%, #c2410c 78%, #6b2408 100%);box-shadow:0 0 20px 4px rgba(249,115,22,0.5), inset -6px -6px 10px rgba(0,0,0,0.35), inset 3px 3px 6px rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;transition:filter 0.28s ease;">
-          <svg width="30" height="30" viewBox="0 0 24 24" style="color:#F8FAFC;overflow:visible;">
+        <div class="planet-sphere" style="position:absolute;inset:0;border-radius:50%;overflow:hidden;box-shadow:0 0 20px 4px rgba(249,115,22,0.5), inset -6px -6px 10px rgba(0,0,0,0.35), inset 3px 3px 6px rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;">
+          <div class="planet-surface" style="background-image:repeating-linear-gradient(78deg, #c2410c 0px, #c2410c 6px, #f97316 6px, #f97316 12px, #fdba74 12px, #fdba74 18px, #9a3412 18px, #9a3412 24px);"></div>
+          <div class="planet-shading"></div>
+          <svg width="30" height="30" viewBox="0 0 24 24" style="position:relative;color:#F8FAFC;overflow:visible;">
             <g><path d="M12 2.3 L20 5.3 V11 C20 16.4 16.6 19.9 12 21.7 C7.4 19.9 4 16.4 4 11 V5.3 Z" fill="currentColor" fill-opacity="0.22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.4 11.6 L10.8 14 L15.7 8.7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></g>
           </svg>
         </div>
@@ -228,6 +264,7 @@
         <p class="desc" style="font-size:11px;line-height:1.45;color:#9FB0CC;margin:8px 0 0;transition:color 0.25s ease;">Drive organizational change and ensure adoption through people, process and communication.</p>
       </div>
     </a>
+    </div>
 
   </div>
   </div>
